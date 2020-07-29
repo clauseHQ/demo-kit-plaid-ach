@@ -1,0 +1,36 @@
+{
+    "clauseId": "{{% clauseId %}}",
+    "name": "Task Completion",
+    "triggerType": "io.clause.flows.trigger.HttpTrigger",
+    "models": {
+        "request": "io.clause.verify.ach.StoreAchData",
+        "response": "org.accordproject.cicero.runtime.Response"
+    },
+    "steps": [
+        {
+            "enforce": {
+                "postCondition": {
+                    "condition": "true",
+                    "elseAction": "abort"
+                }
+            },
+            "transformation": "jsonata",
+            "name": "Transform to Template Request ",
+            "input": {
+                "$expression": "{\n  \"$class\": \"io.clause.verify.ach.StoreAchData\",\n   \"account\" : step[0].output.auth.numbers.ach[0].account,\n   \"routing\" :  step[0].output.auth.numbers.ach[0].routing,\n   \"wire_routing\" : step[0].output.auth.numbers.ach[0].wire_routing\n}"
+            }
+        },
+        {
+            "enforce": {
+                "postCondition": {
+                    "condition": "true",
+                    "elseAction": "abort"
+                }
+            },
+            "transformation": "clauseTrigger",
+            "input": {
+                "clauseId": "{{% clauseId %}}"
+            }
+        }
+    ]
+}

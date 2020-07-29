@@ -1,0 +1,11 @@
+{
+  "name": "plaid-account-selection-ach",
+  "displayName": "Bank Account Selection with Plaid",
+  "version": "1.0.0",
+  "description": "Kit for retrieving ACH bank data using Plaid. Creates a Task URL where a user can securely log into their bank. The user's account number, routing number and wire-routing number are then stored in contract state.  ",
+  "license": "LicenseRef-LICENSE",
+  "author": "Clause Inc.",
+  "engine": {
+    "clause-kit": "0.0.1"
+  }
+}

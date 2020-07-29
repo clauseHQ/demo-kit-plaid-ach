@@ -1,0 +1,42 @@
+{
+    "name": "Start Task",
+    "steps": [
+        {
+            "enforce": {
+                "postCondition": {
+                    "condition": "false",
+                    "elseAction": "return",
+                    "elseData": "{\"url\":step[1].output, \"account\":clause.state.account, \"routing\":clause.state.routing, \"wire_routing\":clause.state.wire_routing }"
+                }
+            },
+            "input": {
+                "appId": "plaidLink",
+                "flowId": "{{% flows['Task Completion'].id %}}",
+                "plaidProducts": [
+                    "auth"
+                ],
+                "plaidConnection": "default"
+            },
+            "transformation": "tasksCreateUrl",
+            "name": "Create Plaid URL"
+        },
+        {
+            "enforce": {
+                "postCondition": {
+                    "condition": "true",
+                    "elseAction": "abort"
+                }
+            },
+            "transformation": "clauseTrigger",
+            "input": {
+                "clauseId": "{{% clauseId %}}"
+            }
+        }
+    ],
+    "triggerType": "io.clause.flows.trigger.HttpTrigger",
+    "clauseId": "{{% clauseId %}}",
+    "models": {
+        "request": "io.clause.verify.ach.InitiateAchDataRequest",
+        "response": "io.clause.verify.ach.QueryAchDataResponse"
+    }
+}

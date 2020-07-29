@@ -1,0 +1,1 @@
+The repository contains the source code for a Clause Kit that verifies user ACH bank numbers during e-signature with DocuSign by retrieving data via the Plaid API.
